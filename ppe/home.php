@@ -79,29 +79,7 @@ include 'fonctions.php';
       <a class="btn btn-primary btn-lg" href="#listeVoitures" role="button">Explorer</a>
     </div>
   </div>
-
-  <?php
-  $sql = "select vimg from vehicule where vnum=?";
-
-  if ($stmt2 = $mysqli->prepare($sql)) {
-    $stmt2->bind_param("i", $param_test);
-
-    $param_test = 0;
-
-    if ($stmt2->execute()) {
-
-      $result = $stmt2->get_result();
-      while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-        foreach ($row as $r) {
-          //Vide
-        }
-      }
-    }
-  }
-  ?>
-
-  <img class="card-img-top img-fluid" src=<?php echo $r ?> alt="">
-
+  
   <?php
 
   $randmaxarr = array();

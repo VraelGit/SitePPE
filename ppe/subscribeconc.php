@@ -88,6 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
+                var_dump($stmt);
+                print_r($stmt);
                 // Redirect to login page
             } else {
                 echo ('<div style="position: absolute; bottom: 2px;">execute fail utilQuelque chose s\'est mal passé, réessayer plus tard.</div>');
@@ -107,6 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $param_concsiret = $_POST["subConcSiret"];
         $param_concrais = $_POST["subConcRais"];
+        var_dump($req);
+        print_r($req);
 
         if ($req->execute()) {
             header("location: login.php");

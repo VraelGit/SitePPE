@@ -58,7 +58,7 @@ function afficherRechercheVoiture()
 ?>
 
             <div class="card" style="max-width: 50%;">
-                <img class="card-img-top" src="images/<?php echo $param_vnum[$i] ?>" alt="Image de voiture">
+                <img class="card-img-top" src="images/<?php echo $param_vnum[$i]; ?>" alt="Image de voiture">
                 <div class="card-body">
                     <h5 class="card-title"> <?php echo ("$str $param_vmod[$i]") ?></h5>
                     <p class="card-text"><?php echo $param_desc[$i]; ?></p>
@@ -99,6 +99,7 @@ function afficherDetailVoiture()
 
     require('config.php');
 
+    /*
     $modLibelle;
     $modMarque;
     $vPrixPro;
@@ -113,66 +114,63 @@ function afficherDetailVoiture()
     $concRaisSoc;
     $telephone;
     $adresse;
+    */
 
     //$sql = "select vMod,marqNom,vPrixPro,vDesc,vImmatriculation,vKmCpt,typeLib,carbuType,vDateAjout,concSiret,concRaisSoc,uTel,uAddr from utilisateur, vehicule, type_vehi, carburant, concessionnaire, marque where vNum=? and vehicule.typeVehi=type_vehi.typeVehi and vehicule.carbuCode=carburant.carbuCode";
 
-    $sqlvoit = "select vmod, vprixpro, vdesc, vimmatriculation vkmcpt, vdateajout from vehicule where vnum = ?";
+    $sqlvoit = "select vmod, vprixpro, vdesc, vimmatriculation, vkmcpt, vdateajout from vehicule where vnum = ?";
 
     if ($stmt = $mysqli->prepare($sqlvoit)) {
-        $vnum = trim($_GET["vnum"]);
+
         $stmt->bind_param("i", $vnum);
+
+        $vnum = trim($_GET["vnum"]);
 
         if ($stmt->execute()) {
 
             $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 
-                if ($row == null) {
+                var_dump($row);
 
                     //$modLibelle = $row["vMod"];
                     //$modMarque = $row["marqNom"];
-                    $vPrixPro = $row["vPrixPro"];
-                    $vDesc = $row["vDesc"];
-                    $vImmatriculation = $row["vImmatriculation"];
-                    $vKmCpt = $row["vKmCpt"];
+                    $vPrixPro = $row['vprixpro'];
+                    $vDesc = $row['vdesc'];
+                    $vImmatriculation = $row['vimmatriculation'];
+                    $vKmCpt = $row['vkmcpt'];
                     //$typeLib = $row["typeLib"];
                     //$carbuType = $row["carbuType"];
-                    $vDateAjout = $row["vDateAjout"];
-                }else{
-                    echo "row not null";
+                    $vDateAjout = $row['vdateajout'];
+
                 }
             }
         } else {
             echo "execute fail";
         }
-    } else {
-        echo "prepare fail";
-    }
+
+
 
     $sqlutil = "select utel, uaddr from utilisateur, annonce where utilisateur.uid = annonce.uid and annonce.vnum = ?";
 
     if ($stmt = $mysqli->prepare($sqlutil)) {
-        $vnum = trim($_GET["vnum"]);
+
         $stmt->bind_param("i", $vnum);
+
+        $vnum = trim($_GET["vnum"]);
 
         if ($stmt->execute()) {
 
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
 
-                if ($row == null) {
-
                     //$modLibelle = $row["vMod"];
                     //$modMarque = $row["marqNom"];
                     //$typeLib = $row["typeLib"];
                     //$carbuType = $row["carbuType"];
-                    //$concSiret = $row["concSiret"];
-                    //$concRaisSoc = $row["concRaisSoc"];
-                    $telephone = $row["uTel"];
-                    $adresse = $row["uAddr"];
-                }else{
-                    echo "row not null";
-                }
+                    $telephone = $row['utel'];
+                    $adresse = $row['uaddr'];
+
             }
         } else {
             echo "execute fail";
@@ -181,28 +179,24 @@ function afficherDetailVoiture()
         echo "prepare fail";
     }
 
-    $sqlconc = "select concsiret, concraissoc from concessionnaire";
+    $sqlconc = "select concsiret, concraissoc from concessionnaire,annonce where concessionnaire.uid = annonce.uid";
 
-    if ($stmt = $mysqli->prepare($sqlutil)) {
-        $vnum = trim($_GET["vnum"]);
-        $stmt->bind_param("i", $vnum);
+    if ($stmt = $mysqli->prepare($sqlconc)) {
 
         if ($stmt->execute()) {
 
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
 
-                if ($row == null) {
+                var_dump($row);
 
                     //$modLibelle = $row["vMod"];
                     //$modMarque = $row["marqNom"];
                     //$typeLib = $row["typeLib"];
                     //$carbuType = $row["carbuType"];
-                    $concSiret = $row["concSiret"];
-                    $concRaisSoc = $row["concRaisSoc"];
-                }else{
-                    echo "row not null";
-                }
+                    $concSiret = $row['concsiret'];
+                    $concRaisSoc = $row['concraissoc'];
+
             }
         } else {
             echo "execute fail";
@@ -210,9 +204,6 @@ function afficherDetailVoiture()
     } else {
         echo "prepare fail";
     }
-
-
-
 
     ?>
 
@@ -221,12 +212,12 @@ function afficherDetailVoiture()
         <div class="col-lg-3">
             <h1 class="my-1">Détail véhicule</h1>
             <div class="list-group">
-                <p class="list-group-item">Type vehicule: <?php echo $typeLib ?></p>
-                <p class="list-group-item">Type moteur</p>
-                <p class="list-group-item">Kilometrage: <?php echo $vKmCpt ?></p>
-                <p class="list-group-item">Carburant: <?php echo $carbuType ?></p>
-                <p class="list-group-item">Date annonce: <?php echo $vDateAjout ?></p>
-                <p href="" class="list-group-item">Immatriculation:<?php echo $vImmatriculation ?></p>
+                <p class="list-group-item">Type vehicule : <?php echo $typeLib ?></p>
+                <p class="list-group-item">Type moteur : </p>
+                <p class="list-group-item">Kilometrage : <?php echo $vKmCpt ?></p>
+                <p class="list-group-item">Carburant : <?php echo $carbuType ?></p>
+                <p class="list-group-item">Date annonce : <?php echo $vDateAjout ?></p>
+                <p href="" class="list-group-item">Immatriculation : <?php echo $vImmatriculation ?></p>
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -234,7 +225,7 @@ function afficherDetailVoiture()
         <div class="col-lg-9">
 
             <div class="card mt-4" align="center">
-                <img class="card-img-top img-fluid" src=<?php echo "images/" . $vnum . ".jpg" ?> alt="">
+                <img class="card-img-top img-fluid" src=<?php echo "images/" . $vnum ?> alt="">
                 <div class="card-body">
                     <h3 class="card-title"><?php echo $modMarque . " " . $modLibelle; ?></h3>
                     <h4><?php echo $vPrixPro . "€" ?></h4>

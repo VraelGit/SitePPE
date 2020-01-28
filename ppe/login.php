@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             if ($r == 0) {
 
-                echo "Votre compte n'est pas activé";
+                echo "Votre compte n'est pas activé ou identifiants de connexion incorrectes";
                 exit;
             }
         }
