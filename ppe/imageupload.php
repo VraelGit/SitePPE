@@ -75,11 +75,11 @@ include 'fonctions.php';
 
         $int_vnum = $_GET['vnum'];
 
-        $nomtemp = explode(".", $_FILES["userfile"]["name"]);
-        $newfilename = $_GET['vnum'] . '.' . end($nomtemp);
+        $newfilename = $_GET['vnum'] . '.' . "jpg";
 
-        if (($_FILES["userfile"]["type"] == "image/gif") || ($_FILES["userfile"]["type"] == "image/jpeg") || ($_FILES["userfile"]["type"] == "image/jpg") || ($_FILES["userfile"]["type"] == "image/pjpeg") || ($_FILES["userfile"]["type"] == "image/x-png") || ($_FILES["userfile"]["type"] == "image/png")) {
-            if (move_uploaded_file($_FILES["userfile"]["tmp_name"], "images/" . $newfilename)) {
+        if (($_FILES["userfile"]["type"] == "image/gif") || ($_FILES["userfile"]["type"] == "image/jpeg") || ($_FILES["userfile"]["type"] == "image/jpg") || ($_FILES["userfile"]["type"] == "image/pjpeg") || ($_FILES["userfile"]["type"] == "image/x-png") || ($_FILES["userfile"]["type"] == "image/png") || ($_FILES["userfile"]["type"] == "image/jfif")) {
+            $newimgname = "images/" . $newfilename;
+            if (move_uploaded_file($_FILES["userfile"]["tmp_name"], $newimgname)) {
                 echo ('<div class="container" align="center"> Le fichier est valide, et a été téléchargé avec succès.</br></br>Vous allez être rédirigé d\'ici quelques secondes.</div>');
                 header("Refresh: 3;URL=voiture.php?vnum=$int_vnum");
             } else {
