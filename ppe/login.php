@@ -53,10 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //Vide
                 }
             }
-            if ($r == 0) {
+            if (isset($r) and $r == 0) {
 
-                echo "Votre compte n'est pas activé ou identifiants de connexion incorrectes";
+                header("location: comptedesac.php");
                 exit;
+
+            } else {
+                echo $logMail_err = ('<div style="position: absolute; bottom: 2px;">Aucun compte avec cette adresse e-mail n\'a été trouvé</div>');
             }
         }
     }

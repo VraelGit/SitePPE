@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require('config.php');
 include 'fonctions.php';
 
 ?>
@@ -65,40 +66,22 @@ include 'fonctions.php';
         </ul>
     </nav>
 
-    <?php
+    <div class="container-fluid">
 
-    require('config.php');
+        <p align="center" style="bottom: 20px">Votre compte n'a pas été activé, redirection vers la page de connexion dans 5 secondes.</p>
 
-    if (empty($_SESSION["annonce"])) {
-        header("location: login.php");
-    } else {
+        <?php
 
-        $int_vnum = $_GET['vnum'];
+        header("Refresh: 5;URL=login.php");
 
-        $newfilename = $_GET['vnum'] . '.' . 'jpg';
+        ?>
 
-        if (($_FILES["userfile"]["type"] == "image/gif") || ($_FILES["userfile"]["type"] == "image/jpeg") || ($_FILES["userfile"]["type"] == "image/jpg") || ($_FILES["userfile"]["type"] == "image/pjpeg") || ($_FILES["userfile"]["type"] == "image/x-png") || ($_FILES["userfile"]["type"] == "image/png") || ($_FILES["userfile"]["type"] == "image/jfif")) {
-            $newimgname = 'images/' . $newfilename;
-            if (move_uploaded_file($_FILES["userfile"]["tmp_name"], $newimgname)) {
-                echo ('<div class="container" align="center"> Le fichier est valide, et a été téléchargé avec succès.</br></br>Vous allez être rédirigé d\'ici quelques secondes.</div>');
-                header("Refresh: 3;URL=voiture.php?vnum=$int_vnum");
-            } else {
-                echo ('<div class="container" align="center">Erreur, vous allez être rediriger dans 5 secondes vers la page précédente.</div>');
-                header("Refresh: 3;URL=imagevoiture.php?vnum=$int_vnum");
-            }
-        } else {
-            echo ('<div class="container" align="center">Type de fichier invalide, vous allez être rediriger dans 5 secondes vers la page précédente.   </div>');
-            header("Refresh: 5;URL=imagevoiture.php?vnum=$int_vnum");
-        }
-    }
+    </div>
 
-    ?>
-
+    <!--Lien JS Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
 </body>
 
 </html>

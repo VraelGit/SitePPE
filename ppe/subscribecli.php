@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_ville = trim($_POST["subVille"]);
             $param_CP = trim($_POST["subCP"]);
             $param_depart = trim($_POST["subDepart"]);
-            $param_conc = $_POST["subConc"];
+            $param_conc = 0;
             $param_utel = trim($_POST["subTel"]);
             
             // Attempt to execute the prepared statement
