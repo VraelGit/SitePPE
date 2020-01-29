@@ -131,8 +131,6 @@ function afficherDetailVoiture()
             $result = $stmt->get_result();
             while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 
-                    //$modLibelle = $row["vMod"];
-                    //$modMarque = $row["marqNom"];
                     $vPrixPro = $row['vprixpro'];
                     $vDesc = $row['vdesc'];
                     $vImmatriculation = $row['vimmatriculation'];
@@ -162,8 +160,6 @@ function afficherDetailVoiture()
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
 
-                    //$modLibelle = $row["vMod"];
-                    //$modMarque = $row["marqNom"];
                     $telephone = $row['utel'];
                     $adresse = $row['uaddr'];
 
@@ -184,8 +180,6 @@ function afficherDetailVoiture()
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
 
-                    //$modLibelle = $row["vMod"];
-                    //$modMarque = $row["marqNom"];
                     $concSiret = $row['concsiret'];
                     $concRaisSoc = $row['concraissoc'];
 
@@ -206,8 +200,6 @@ function afficherDetailVoiture()
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
 
-                    //$modLibelle = $row["vMod"];
-                    //$modMarque = $row["marqNom"];
                     $typeLib = $row["typeLib"];
 
             }
@@ -227,8 +219,6 @@ function afficherDetailVoiture()
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
 
-                    //$modLibelle = $row["vMod"];
-                    //$modMarque = $row["marqNom"];
                     $carbuType = $row["carbuType"];
 
             }
