@@ -114,7 +114,7 @@ create table facture
 	foreign key (contNum) references contrat(contNum)
 );
 
-ALTER TABLE UTILISATEUR AUTO_INCREMENT = ;
+ALTER TABLE UTILISATEUR AUTO_INCREMENT = 0;
 
 INSERT INTO marque
 VALUES (0,"peugeot"),
@@ -164,6 +164,9 @@ INSERT INTO UTILISATEUR
 VALUES (0, "admin@gmail.com", "$2y$10$9SKsqzjS8NMTiprHMjDDju7DX4vhaaoJRmnRz1rI7dbeCkmzOsvRq","admin","admin","admin","admin",11111,"admin",1,1,TRUE,"06 66 66 66 66");
 
 /* MDP Admin : "admin" */
+
+INSERT INTO concessionnaire (concSiret, concRaisSoc)
+VALUES (1,"a");
 
 DROP TRIGGER IF EXISTS vDateAj;
 DELIMITER //
