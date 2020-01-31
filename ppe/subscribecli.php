@@ -96,10 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Close statement
             $stmt->close();
         }else{
-            echo "erreur 1";
         }
     }else{
-        echo "erreur 2";
     }
     // Close connection
     $mysqli->close();

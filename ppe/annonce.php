@@ -214,9 +214,8 @@ include 'fonctions.php';
         $sql = "INSERT INTO vehicule (vnum, vimmatriculation, vdateimmatriculation, vkmcpt, vprixpro, marqnum, vmod, typevehi, carbucode, vdateajout, vdesc, vimg) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         
         if (($stmt = $mysqli->prepare($sql))) {
-            // Bind variables to the prepared statement as parameters
+            
             $stmt->bind_param("iisiiisiisss", $param_vnum, $param_vim, $param_vdateim, $param_vkm, $param_vprix, $param_vmarque, $param_vmod, $param_typevehi, $param_carbucode, $param_vdateajout, $param_desc, $param_vimg);
-            // Set parameters
 
             $param_vnum = $insertint + 1;
             $resultat = $param_vnum;
@@ -231,7 +230,6 @@ include 'fonctions.php';
             $param_carbucode = $_POST["vCarbu"];
             $param_vimg = "images/$resultat";
 
-            // Attempt to execute the prepared statement
             if ($stmt->execute()) {
 
                 $sqlannonce = "insert into annonce (anum,anom, vnum, uid) values (?, ?, ?, ?);";
@@ -247,27 +245,22 @@ include 'fonctions.php';
 
                     if ($stmtannonce->execute()) {
 
-                // Redirect to login page
     ?>
                 <script>
                     window.location.replace("imagevoiture.php<?php echo "?vnum=$param_vnum" ?>");
                 </script>
     <?php
             } else {
-                echo ('<div style="position: absolute; bottom: 2px;">aaaQuelque chose s\'est mal passé, réessayer plus tard.</div>');
+                echo ('<div style="position: absolute; bottom: 2px;">Quelque chose s\'est mal passé, réessayer plus tard.</div>');
             }
         } else {
-            echo ('<div style="position: absolute; bottom: 2px;">bbbQuelque chose s\'est mal passé, réessayer plus tard.</div>');
+            echo ('<div style="position: absolute; bottom: 2px;">Quelque chose s\'est mal passé, réessayer plus tard.</div>');
         }
-        //header("location: imagevoiture.php?vnum=$param_vnum");
 
-        // Close statement
         $stmt->close();
     }else{
-        echo "erreur 1";
     }
 }else{
-    echo "erreur 2";
 }
     }
 

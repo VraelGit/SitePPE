@@ -97,20 +97,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Close statement
             $stmt->close();
         } else {
-            echo "erreur 1";
         }
     }
 
-    $sql2 = "INSERT INTO concessionnaire (concSiret, concRaisSoc) VALUES (?, ?)";
+    if ($sqluid = $mysqli->query("select uid from utilisateur where uid >= all (select uid from utilisateur)")) {
+        $arr = $sqluid->fetch_array(MYSQLI_NUM);
+        $str = implode($arr);
+    }
+
+    $sql2 = "INSERT INTO concessionnaire (uid, concSiret, concRaisSoc) VALUES (?, ?, ?)";
 
     if ($req = $mysqli->prepare($sql2)) {
 
-        $req->bind_param("is", $param_concsiret, $param_concrais);
+        $req->bind_param("iis",$str, $param_concsiret, $param_concrais);
 
         $param_concsiret = $_POST["subConcSiret"];
         $param_concrais = $_POST["subConcRais"];
-        var_dump($req);
-        print_r($req);
 
         if ($req->execute()) {
             header("location: login.php");

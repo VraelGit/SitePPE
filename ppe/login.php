@@ -53,13 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //Vide
                 }
             }
-            if (isset($r) and $r == 0) {
+            if (!isset($r)) {
 
+                echo $logMail_err = ('<div style="position: absolute; bottom: 2px;">bbbAucun compte avec cette adresse e-mail n\'a été trouvé</div>');
+
+            } else if($r == 0){
+                var_dump($r);
                 header("location: comptedesac.php");
                 exit;
-
-            } else {
-                echo $logMail_err = ('<div style="position: absolute; bottom: 2px;">Aucun compte avec cette adresse e-mail n\'a été trouvé</div>');
             }
         }
     }
@@ -106,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 } else {
                     // Display an error message if username doesn't exist
-                    echo $logMail_err = ('<div style="position: absolute; bottom: 2px;">Aucun compte avec cette adresse e-mail n\'a été trouvé</div>');
+                    echo $logMail_err = ('<div style="position: absolute; bottom: 2px;">aaaAucun compte avec cette adresse e-mail n\'a été trouvé</div>');
                 }
             } else {
                 echo "Quelque chose s'est mal passé, réessayer plus tard svp.";

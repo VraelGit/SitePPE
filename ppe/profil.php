@@ -104,7 +104,9 @@ include 'fonctions.php';
             <tr>
               <?php
 
-              if ($sql = $mysqli->query("select vehicule.*, typeLib from type_vehi, vehicule where type_vehi.typeVehi = vehicule.typeVehi")) {
+              $mail = $_GET["uid"];
+
+              if ($sql = $mysqli->query("select vehicule.*, typeLib from type_vehi, vehicule, annonce, utilisateur, concessionnaire where type_vehi.typeVehi = vehicule.typeVehi and vehicule.vnum = annonce.vnum and utilisateur.uid = concessionnaire.uid and concessionnaire.uid = annonce.uid and annonce.uid = $mail")) { //uid = int pas char
                 $param_vim = array();
                 $param_vdateim = array();
                 $param_kmcpt = array();

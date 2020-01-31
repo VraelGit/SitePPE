@@ -112,7 +112,7 @@ include 'fonctions.php';
 
       if ($sql2 = $mysqli->query("select marqNom from marque where marqNum = $param_vmarq[$i]")) {
         $arr = $sql2->fetch_array(MYSQLI_NUM);
-        $str = implode($arr);
+        $str[$i] = implode($arr);
       }
     }
   }
@@ -132,7 +132,7 @@ include 'fonctions.php';
           <div class="card">
             <img class="card-img-top" src="images/<?php echo $numvoit[0] ?>.jpg" alt="Image de voiture">
             <div class="card-body">
-              <h5 class="card-title"><?php echo $param_vnum[$numvoit[0]] ?></h5>
+              <h5 class="card-title"><?php echo $str[$numvoit[0]]. " " . $param_vmod[$numvoit[0]] ?></h5>
               <p class="card-text"><?php echo $param_desc[$numvoit[0]] ?></p>
               <a class="btn btn-primary" href="voiture.php?vnum=<?php echo $numvoit[0] ?>" role="button">Accéder à la page de la voiture</a>
             </div>
@@ -149,7 +149,7 @@ include 'fonctions.php';
           <div class="card">
             <img class="card-img-top" src="images/<?php echo $numvoit[1] ?>.jpg" alt="Image de voiture">
             <div class="card-body">
-              <h5 class="card-title"><?php echo $param_vnum[$numvoit[1]] ?></h5>
+              <h5 class="card-title"><?php echo $str[$numvoit[1]] . " " . $param_vmod[$numvoit[1]] ?></h5>
               <p class="card-text"><?php echo $param_desc[$numvoit[1]] ?></p>
               <a class="btn btn-primary" href="voiture.php?vnum=<?php echo $numvoit[1] ?>" role="button">Accéder à la page de la voiture</a>
             </div>
@@ -166,7 +166,7 @@ include 'fonctions.php';
           <div class="card">
             <img class="card-img-top" src="images/<?php echo $numvoit[2] ?>.jpg" alt="Image de voiture">
             <div class="card-body">
-              <h5 class="card-title"><?php echo $param_vnum[$numvoit[2]] ?></h5>
+              <h5 class="card-title"><?php echo $str[$numvoit[2]] . " " . $param_vmod[$numvoit[2]] ?></h5>
               <p class="card-text"><?php echo $param_desc[$numvoit[2]] ?></p>
               <a class="btn btn-primary" href="voiture.php?vnum=<?php echo $numvoit[2] ?>" role="button">Accéder à la page de la voiture</a>
             </div>
@@ -185,7 +185,7 @@ include 'fonctions.php';
         <div class="card">
           <img class="card-img-top" src="images/<?php echo $numvoit[3] ?>.jpg" alt="Image de voiture">
           <div class="card-body">
-            <h5 class="card-title"><?php echo $param_vnum[$numvoit[3]] ?></h5>
+            <h5 class="card-title"><?php echo $str[$numvoit[3]] . " " . $param_vmod[$numvoit[3]] ?></h5>
             <p class="card-text"><?php echo $param_desc[$numvoit[3]] ?></p>
             <a class="btn btn-primary" href="voiture.php?vnum=<?php echo $numvoit[3] ?>" role="button">Accéder à la page de la voiture</a>
           </div>
@@ -201,7 +201,7 @@ include 'fonctions.php';
         <div class="card">
           <img class="card-img-top" src="images/<?php echo $numvoit[4] ?>" alt="Image de voiture">
           <div class="card-body">
-            <h5 class="card-title"><?php echo $param_vnum[$numvoit[4]] ?></h5>
+            <h5 class="card-title"><?php echo $str[$numvoit[4]] . " " . $param_vmod[$numvoit[4]] ?></h5>
             <p class="card-text"><?php echo $param_desc[$numvoit[4]] ?></p>
             <a class="btn btn-primary" href="voiture.php?vnum=<?php echo $numvoit[4] ?>" role="button">Accéder à la page de la voiture</a>
           </div>
@@ -218,7 +218,7 @@ include 'fonctions.php';
         <div class="card">
           <img class="card-img-top" src="images/<?php echo $numvoit[5] ?>" alt="Image de voiture">
           <div class="card-body">
-            <h5 class="card-title"><?php echo $param_vnum[$numvoit[5]] ?></h5>
+            <h5 class="card-title"><?php echo $str[$numvoit[6]] . " " . $param_vmod[$numvoit[5]] ?></h5>
             <p class="card-text"><?php echo $param_desc[$numvoit[5]] ?></p>
             <a class="btn btn-primary" href="voiture.php?vnum=<?php echo $numvoit[5] ?>" role="button">Accéder à la page de la voiture</a>
           </div>
