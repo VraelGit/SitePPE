@@ -117,19 +117,19 @@ create table facture
 ALTER TABLE UTILISATEUR AUTO_INCREMENT = 0;
 
 INSERT INTO marque
-VALUES (0,"peugeot"),
-(1,"renault"),
-(2,"opel"),
-(3,"citroen"),
-(4,"volkswagen"),
-(5,"mercedes"),
-(6,"nissan"),
-(7,"audi"),
-(8,"bmw"),
-(9,"ford"),
-(10,"toyota"),
-(11,"fiat"),
-(12,"autre");
+VALUES (0,"Peugeot"),
+(1,"Renault"),
+(2,"Opel"),
+(3,"Citroen"),
+(4,"Volkswagen"),
+(5,"Mercedes"),
+(6,"Nissan"),
+(7,"Audi"),
+(8,"Bmw"),
+(9,"Ford"),
+(10,"Toyota"),
+(11,"Fiat"),
+(12,"Autre");
 
 INSERT INTO carburant 
 VALUES (0,"biodiesel"),
