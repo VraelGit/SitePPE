@@ -30,7 +30,6 @@ include 'fonctions.php';
 
     th {
       background: grey;
-      border: 1px solid black;
     }
   </style>
 
@@ -44,7 +43,7 @@ include 'fonctions.php';
 
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="home.php">Accueil</a>
+        <a class="nav-link" href="index.php">Accueil</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="recherche.php">Recherche</a>
@@ -84,48 +83,52 @@ include 'fonctions.php';
   if (isset($_SESSION["loggedin"]) && (isset($_GET["uid"]))) {
 
     if ($_GET["uid"] != $_SESSION["username"]) {
-      header("location: home.php");
+      header("location: index.php");
     } else {
   ?>
-  <?php
+      <?php
 
-$sqlutil = "select annonce.uid from annonce, utilisateur where annonce.uid = utilisateur.uid and utilisateur.ulogin = ?";
+      $sqlutil = "select annonce.uid from annonce, utilisateur where annonce.uid = utilisateur.uid and utilisateur.ulogin = ?";
 
-if ($res = $mysqli->prepare($sqlutil)) {
-  $res->bind_param("s", $param_log);
+      if ($res = $mysqli->prepare($sqlutil)) {
+        $res->bind_param("s", $param_log);
 
-  $param_log = $_SESSION["username"];
+        $param_log = $_SESSION["username"];
 
-  if ($res->execute()) {
-    $val = $res->get_result();
-    while ($row = $val->fetch_array(MYSQLI_NUM)) {
-      foreach ($row as $r) {
+        if ($res->execute()) {
+          $val = $res->get_result();
+          while ($row = $val->fetch_array(MYSQLI_NUM)) {
+            foreach ($row as $r) {
+            }
+          }
+        }
       }
-    }
-  }
-}
 
-if (!isset($r)) {
-?>
+      if (!isset($r)) {
+      ?>
 
-  <p align="center" style="bottom: 20px">Vous n'avez publié aucune annonce.</p>
+        <p align="center" style="bottom: 20px">Vous n'avez publié aucune annonce.</p>
 
-<?php
+      <?php
+      exit;
 
-  exit;
-}
-?>
+      }
+
+
+
+      ?>
+
       </br>
 
       <div class="container" align="center">
         <table>
           <thead>
             <tr>
-              <th colspan="1">Numéro de la plaque d'immatriculation</th>
-              <th colspan="1">Date d'immatriculation</th>
-              <th colspan="1">Kilométrage (Km)</th>
-              <th colspan="1">Prix proposé (€)</th>
-              <th colspan="1">Type de véhicule</th>
+              <th colspan="1">Numéro de la plaque d'immatriculation |</th>
+              <th colspan="1">Date d'immatriculation |</th>
+              <th colspan="1">Kilométrage (Km) |</th>
+              <th colspan="1">Prix proposé (€) |</th>
+              <th colspan="1">Type de véhicule |</th>
               <th colspan="1">Date d'ajout</th>
             </tr>
           </thead>
@@ -180,16 +183,150 @@ if (!isset($r)) {
             </tr>
           <?php
               }
+              
           ?>
           </tbody>
 
         </table>
       </div>
 
+      <br>
+
+      
+
+      <?php
+
+      $sqlutil = "select annonce.uid from annonce, utilisateur where annonce.uid = utilisateur.uid and utilisateur.ulogin = ?";
+
+      if ($res = $mysqli->prepare($sqlutil)) {
+        $res->bind_param("s", $param_log);
+
+        $param_log = $_SESSION["username"];
+
+        if ($res->execute()) {
+          $val = $res->get_result();
+          while ($row = $val->fetch_array(MYSQLI_NUM)) {
+            foreach ($row as $r) {
+            }
+          }
+        }
+      }
+
+      if (!isset($r)) {
+      ?>
+
+        <p align="center" style="bottom: 20px">Vous n'avez publié aucune annonce.</p>
+
+      <?php
+      
+
+      }
+
+
+
+      ?>
+      
+      <div class="container" align="center">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="1">Numéro de contrat |</th>
+              <th colspan="1">Date du contrat |</th>
+              <th colspan="1">Date de départ |</th>
+              <th colspan="1">Date de retour |</th>
+              <th colspan="1">Kilometre au départ |</th>
+              <th colspan="1">Kilometre au retour |</th>
+              <th colspan="1"> Montant de l'accompte </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <?php
+
+              $sqlutil = "select annonce.uid from annonce, utilisateur where annonce.uid = utilisateur.uid and utilisateur.ulogin = ?";
+
+              if ($res = $mysqli->prepare($sqlutil)) {
+                $res->bind_param("s", $param_log);
+
+                $param_log = $_SESSION["username"];
+
+                if ($res->execute()) {
+                  $val = $res->get_result();
+                  while ($row = $val->fetch_array(MYSQLI_NUM)) {
+                    foreach ($row as $r) {
+                    }
+                  }
+                }
+              }
+
+              if (!isset($r)) {
+              ?>
+
+                <p align="center" style="bottom: 20px">Vous n'avez aucun contrat.</p>
+
+              <?php
+
+                
+              }
+              if ($sql2 = $mysqli->query("select contrat.* from annonce, utilisateur, client, contrat where utilisateur.uid = client.uid and client.uid = annonce.uid and annonce.uid  = $r")) {
+                $param_cnum = array();
+                $param_cddpart = array();
+                $param_cdretour = array();
+                $param_ckdepart = array();
+                $param_ckretour = array();
+                $param_cdatecontrat = array();
+                $param_caccompte = array();
+              }
+
+              for ($i = 0; $i < ($row = mysqli_fetch_array($sql2)); $i++) {
+
+                $param_cnum[$i] = $row["vcontNum"];
+                $param_cddpart[$i] = $row['vcontDateDepReelle'];
+                $param_cdretour[$i] = $row['vcontDateRetReelle'];
+                $param_ckdepart[$i] = $row['vcontKmDep'];
+                $param_ckretour[$i] = $row['vcontKmRet'];
+                $param_cdatecontrat[$i] = $row['vcontDate'];
+                $param_caccompte[$i] = $row['vcontMontantAccompte'];
+              ?>
+                <td>
+                  <?php echo $param_cnum[$i] ?>
+                </td>
+                <td>
+                  <?php echo $param_cdatecontrat[$i] ?>
+                </td>
+                <td>
+                  <?php echo $param_cddpart[$i] ?>
+                </td>
+                <td>
+                  <?php echo $param_cdretour[$i] ?>
+                </td>
+                <td>
+                  <?php echo $param_ckdepart[$i] ?>
+                </td>
+                <td>
+                  <?php echo $param_ckretour[$i] ?>
+                </td>
+                <td>
+                  <?php echo $param_caccompte[$i] ?>
+                </td>
+                <td>
+                  <a href="suppannonce.php?vnum=<?php echo $param_vnum[$i] ?>">Suppression annonce</a>
+                </td>
+            </tr>
+          <?php
+              }
+          ?>
+          </tbody>
+
+        </table>
+      </div>
+
+
+
   <?php
     }
   } else {
-    header("location: home.php");
+    header("location: index.php");
   }
   ?>
 
