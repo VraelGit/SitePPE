@@ -30,6 +30,7 @@ include 'fonctions.php';
 
     th {
       background: grey;
+      border: 1px solid black;
     }
   </style>
 
