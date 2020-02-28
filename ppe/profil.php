@@ -86,6 +86,34 @@ include 'fonctions.php';
       header("location: home.php");
     } else {
   ?>
+  <?php
+
+$sqlutil = "select annonce.uid from annonce, utilisateur where annonce.uid = utilisateur.uid and utilisateur.ulogin = ?";
+
+if ($res = $mysqli->prepare($sqlutil)) {
+  $res->bind_param("s", $param_log);
+
+  $param_log = $_SESSION["username"];
+
+  if ($res->execute()) {
+    $val = $res->get_result();
+    while ($row = $val->fetch_array(MYSQLI_NUM)) {
+      foreach ($row as $r) {
+      }
+    }
+  }
+}
+
+if (!isset($r)) {
+?>
+
+  <p align="center" style="bottom: 20px">Vous n'avez publié aucune annonce.</p>
+
+<?php
+
+  exit;
+}
+?>
       </br>
 
       <div class="container" align="center">
@@ -104,9 +132,8 @@ include 'fonctions.php';
             <tr>
               <?php
 
-              $mail = $_GET["uid"];
-
-              if ($sql = $mysqli->query("select vehicule.*, typeLib from type_vehi, vehicule, annonce, utilisateur, concessionnaire where type_vehi.typeVehi = vehicule.typeVehi and vehicule.vnum = annonce.vnum and utilisateur.uid = concessionnaire.uid and concessionnaire.uid = annonce.uid and annonce.uid = $mail")) { //uid = int pas char
+              if ($sql = $mysqli->query("select vehicule.*, typeLib from type_vehi, vehicule, annonce, utilisateur, concessionnaire where type_vehi.typeVehi = vehicule.typeVehi and vehicule.vnum = annonce.vnum and utilisateur.uid = concessionnaire.uid and concessionnaire.uid = annonce.uid and annonce.uid = $r")) {
+                $param_vnum = array();
                 $param_vim = array();
                 $param_vdateim = array();
                 $param_kmcpt = array();
@@ -118,6 +145,7 @@ include 'fonctions.php';
 
               for ($i = 0; $i < ($row = mysqli_fetch_array($sql)); $i++) {
 
+                $param_vnum[$i] = $row["vNum"];
                 $param_vim[$i] = $row['vImmatriculation'];
                 $param_vdateim[$i] = $row['vDateImmatriculation'];
                 $param_kmcpt[$i] = $row['vKmCpt'];
@@ -145,6 +173,9 @@ include 'fonctions.php';
                 <td>
                   <?php echo $param_dateaj[$i] ?>
                 </td>
+                <td>
+                  <a href="suppannonce.php?vnum=<?php echo $param_vnum[$i] ?>">Suppression annonce</a>
+                </td>
             </tr>
           <?php
               }
@@ -153,6 +184,7 @@ include 'fonctions.php';
 
         </table>
       </div>
+
   <?php
     }
   } else {
