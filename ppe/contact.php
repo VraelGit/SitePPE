@@ -44,10 +44,10 @@ include 'fonctions.php';
 
         ?>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="about.php">À propos</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="contact.php">Contact</a>
       </li>
 
