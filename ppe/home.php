@@ -20,16 +20,23 @@ include 'fonctions.php';
 
   <!--Lien CSS Bootstrap-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="sheet.css">
   <style>
-
+  #header
+  {
+    z-index: 10;
+  }
   </style>
 
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+<header id="header" role="banner" class="main-header">
+
+<div class="header-inner">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar" class="header-nav">
 
     <span class="navbar-brand mb-0 h1">AutoPower</span>
 
@@ -70,12 +77,16 @@ include 'fonctions.php';
     </ul>
   </nav>
 
+</div>
+</header>
+
+
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Location de voitures</h1>
-      <p class="lead">placeholder</p>
+      <p class="lead">Le site de mise en relation de concessionaire et de particulier ! </p>
       <hr class="my-4">
-      <p>placeholder</p>
+      <h5><strong> Commencez par voir les derniers véhicules ajoutés</h5></strong>
       <a class="btn btn-primary btn-lg" href="#listeVoitures" role="button">Explorer</a>
     </div>
   </div>
@@ -159,6 +170,9 @@ include 'fonctions.php';
           </div>
         <?php } else {
         } ?>
+
+
+
 
         <?php
 
